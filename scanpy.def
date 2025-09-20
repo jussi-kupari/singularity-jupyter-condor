@@ -1,0 +1,50 @@
+Bootstrap: docker
+From: gcfntnu/scanpy:1.11.4
+
+%post
+    # Update and install system dependencies
+    apt-get update && apt-get install -y \
+        build-essential \
+        cmake \
+        libhdf5-dev \
+        libxml2-dev \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        libgit2-dev \
+        libcairo2-dev \
+        libxt-dev \
+        pkg-config \
+        gfortran \
+        libblas-dev \
+        liblapack-dev \
+        libffi-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        wget \
+        curl
+
+    # Ensure jupyter is available (likely already in base image but just in case)
+    pip install --upgrade jupyter jupyterlab notebook ipykernel
+
+    # Clean up
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export PYTHONUSERBASE="/project/python_libs"
+    export PIP_USER=1
+    export PATH="/project/python_libs/bin:$PATH"
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    python "$@"
+
+%labels
+    Author YourName
+    Version 1.0
+    Description Python container with scanpy and jupyter

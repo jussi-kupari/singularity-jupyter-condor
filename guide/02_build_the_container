@@ -1,0 +1,3 @@
+## Build the Container
+## On HPC login node or build node
+singularity build --fakeroot scanpy.sif scanpy.def
