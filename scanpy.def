@@ -1,9 +1,9 @@
 Bootstrap: docker
-From: gcfntnu/scanpy:1.11.4
+From: gcfntnu/scanpy:latest
 
 %post
     # Update and install system dependencies
-    apt-get update && apt-get install -y \
+    apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         cmake \
         libhdf5-dev \
